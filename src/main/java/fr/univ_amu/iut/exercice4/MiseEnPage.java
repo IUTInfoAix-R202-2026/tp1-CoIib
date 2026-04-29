@@ -1,6 +1,15 @@
 package fr.univ_amu.iut.exercice4;
 
 import javafx.application.Application;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.Menu;
+import javafx.scene.control.MenuBar;
+import javafx.scene.control.TextField;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 
 /**
@@ -29,6 +38,25 @@ public class MiseEnPage extends Application {
 
   @Override
   public void start(Stage primaryStage) {
+    BorderPane bor = new BorderPane();
+    Menu menu2 = new Menu("Fichier");
+    Menu menu3 = new Menu("Aide");
+    MenuBar menu1 = new MenuBar(menu2, menu3);
+    GridPane grid = new GridPane(2, 2);
+    grid.add(new Label("Nom :"), 0, 0);
+    grid.add(new Label("Email :"), 0, 1);
+    grid.add(new TextField(), 1, 0);
+    grid.add(new TextField(), 1, 1);
+    Button val = new Button("Valider");
+    Button ann = new Button("Annuler");
+    HBox hbox = new HBox(8, val, ann);
+    bor.setTop(menu1);
+    bor.setCenter(grid);
+    bor.setBottom(hbox);
+    Scene scene = new Scene(bor);
+    primaryStage.setScene(scene);
+    primaryStage.show();
+
     // TODO exercice 4 : construire la maquette ci-dessus.
     //
     // Stratégie conseillée :
