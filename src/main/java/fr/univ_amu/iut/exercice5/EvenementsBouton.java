@@ -16,6 +16,7 @@ public class EvenementsBouton extends Application {
 
   @Override
   public void start(Stage primaryStage) {
+
     // TODO exercice 5 : construire l'IHM et brancher un écouteur.
     //
     // L'IHM attendue :
