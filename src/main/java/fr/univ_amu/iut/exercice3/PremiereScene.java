@@ -19,8 +19,6 @@ public class PremiereScene extends Application {
 
   @Override
   public void start(Stage primaryStage) {
-    // TODO exercice 3 : afficher un Label au centre d'un BorderPane.
-    //
     BorderPane Bor = new BorderPane();
     Label Lab = new Label("Bonjour, JavaFX !");
     Bor.setCenter(Lab);
