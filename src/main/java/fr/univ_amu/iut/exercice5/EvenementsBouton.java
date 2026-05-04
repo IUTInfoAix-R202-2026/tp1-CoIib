@@ -1,6 +1,10 @@
 package fr.univ_amu.iut.exercice5;
 
 import javafx.application.Application;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 /**
@@ -16,6 +20,19 @@ public class EvenementsBouton extends Application {
 
   @Override
   public void start(Stage primaryStage) {
+    Compteur compteur = new Compteur();
+    Button bouton = new Button("Clique-moi");
+    Label label = new Label("0 clics");
+    label.setId("compteur");
+    bouton.setId("bouton-clique-moi");
+    bouton.setOnAction(
+        e -> {
+          compteur.incrementer();
+          label.setText(compteur.getValeur() + " clics");
+        });
+    VBox vbox = new VBox(bouton, label);
+    primaryStage.setScene(new Scene(vbox));
+    primaryStage.show();
     // TODO exercice 5 : construire l'IHM et brancher un écouteur.
     //
     // L'IHM attendue :
