@@ -1,4 +1,3 @@
-[![Open in Codespaces](https://classroom.github.com/assets/launch-codespace-2972f46106e565e64193e422d61a12cf1da4916b45550586e14ef0a7c637dd04.svg)](https://classroom.github.com/open-in-codespaces?assignment_repo_id=23761897)
 # <img src="https://raw.githubusercontent.com/IUTInfoAix-R510/Syllabus/main/assets/logo.png" alt="class logo" class="logo"/> R2.02 - Développement d'applications avec IHM
 
 ### IUT d'Aix-Marseille - Département Informatique Aix-en-Provence
@@ -423,7 +422,7 @@ Le fichier `App.java` (dans `src/main/java/fr/univ_amu/iut/`) est un **menu prin
 - Cliquez sur **"Exercice 1 - Première fenêtre"** : votre fenêtre vide s'ouvre (si vous avez bien implémenté `show()`).
 - Si vous cliquez sur un exercice que vous n'avez pas encore implémenté, une popup vous indiquera "rien à afficher", c'est normal.
 
-Le lanceur est un outil pratique pour **tester visuellement** chaque exercice au fil de votre progression. Vous pouvez aussi lancer directement un exercice en faisant clic droit sur sa classe → **Run** dans VS Code.
+Le lanceur est un outil pratique pour **tester visuellement** chaque exercice au fil de votre progression. Vous pouvez aussi lancer directement un exercice en cliquant sur **Run** au-dessus de sa méthode `main()` (CodeLens de l'extension Java), ou par clic droit sur sa classe → **Run Java** dans VS Code.
 
 Pour fermer l'application, fermez la fenêtre JavaFX ou appuyez sur `Ctrl+C` dans le terminal.
 
@@ -555,17 +554,7 @@ Comme vu en [CM1 (slide 30)](https://iutinfoaix-r202.github.io/cours/cm1-fondati
 
 Cette métaphore se traduit par une hiérarchie d'objets imbriqués appelée **graphe de scène** (scene graph) :
 
-```mermaid
-graph BT
-    D["🏷️ <b>Label</b><br/>composant texte"] -- "placé dans" --> C["📦 <b>BorderPane</b><br/>conteneur racine"]
-    C -- "passé à" --> B["🎬 <b>Scene</b><br/>contenu de la fenêtre"]
-    B -- "attachée au" --> A["🖼️ <b>Stage</b><br/>la fenêtre"]
-    
-    style A fill:#4a90d9,color:white
-    style B fill:#7bb563,color:white
-    style C fill:#e8a838,color:white
-    style D fill:#d35f5f,color:white
-```
+<img alt="Graphe de scène : le Label est placé dans un BorderPane, passé à la Scene, elle-même attachée au Stage" src=".github/assets/ex3-graphe-scene.svg"/>
 
 On construit de l'intérieur vers l'extérieur :
 1. On crée un **Label** (le composant à afficher)
@@ -679,23 +668,13 @@ Voici l'interface que vous devez construire :
 
 ![Maquette du formulaire à reproduire](src/main/resources/assets/maquette_formulaire.svg)
 
+**Le rendu final** (votre objectif une fois l'exercice terminé, à comparer avec la maquette ci-dessus) :
+
+<img alt="Rendu final - Exercice 4 : barre de menus (Fichier, Aide) + formulaire (Nom, Email) + boutons Valider / Annuler" src=".github/assets/apercu-ex4-mise-en-page.png" width="240"/>
+
 L'interface est décomposée en **trois zones** dans un `BorderPane` :
 
-```mermaid
-graph BT
-    M["📁 <b>MenuBar</b><br/>Fichier, Aide"] -- "setTop()" --> BP["📦 <b>BorderPane</b><br/>racine"]
-    G["📋 <b>GridPane</b><br/>Nom + Email"] -- "setCenter()" --> BP
-    H["➡️ <b>HBox</b><br/>Valider, Annuler"] -- "setBottom()" --> BP
-    BP -- "passé à" --> S["🎬 <b>Scene</b>"]
-    S -- "attachée au" --> ST["🖼️ <b>Stage</b>"]
-
-    style ST fill:#4a90d9,color:white
-    style S fill:#7bb563,color:white
-    style BP fill:#e8a838,color:white
-    style M fill:#b0bec5,color:#333
-    style G fill:#b0bec5,color:#333
-    style H fill:#b0bec5,color:#333
-```
+<img alt="Décomposition en conteneurs : MenuBar (top), GridPane (center) et HBox (bottom) dans un BorderPane, passé à la Scene puis au Stage" src=".github/assets/ex4-conteneurs.svg"/>
 
 ### Découverte du code
 
@@ -735,6 +714,7 @@ Appliquez la [boucle de travail](#boucle-de-travail-pour-chaque-test) : activez 
 9. **`leHBoxEstEnBas`** : créez un `HBox` et placez-le dans `borderPane.setBottom()`.
 10. **`leBoutonValiderExiste`** : ajoutez un `Button` "Valider" dans le HBox.
 11. **`leBoutonAnnulerExiste`** : ajoutez un `Button` "Annuler" dans le HBox.
+12. **Style (pour coller à la maquette, non testé)** : aérez le `GridPane` (`setHgap(10)`, `setVgap(10)`, un padding) et le `HBox` (espacement + padding). Les deux boutons ont la **même taille** (même padding + `setPrefWidth(110)`) : "Valider" est le **bouton primaire bleu** (`-fx-background-color: #4a90d9; -fx-text-fill: white; -fx-font-weight: bold;`) et "Annuler" le **bouton secondaire gris et plat** (`-fx-background-color: #cccccc; -fx-text-fill: #333333; -fx-border-color: #aaaaaa;`).
 
 > [!TIP]
 > Pour voir votre fenêtre dans le navigateur, utilisez le VNC comme expliqué dans l'[exercice 1](#voir-votre-fenêtre-avec-vnc).
@@ -773,27 +753,21 @@ Vérifiez votre score sur l'onglet **Actions**.
 - [`Button.setOnAction()`](https://openjfx.io/javadoc/25/javafx.controls/javafx/scene/control/ButtonBase.html#setOnAction(javafx.event.EventHandler)) : la méthode qui branche un écouteur sur un bouton
 - Trois styles d'écriture pour un même écouteur : classe nommée, classe anonyme, lambda
 
-### Maquette de l'IHM attendue
+### Maquette à reproduire
+
+Voici l'interface que vous devez construire :
 
 ![Maquette de l'exercice 5 - bouton et compteur](src/main/resources/assets/maquette_evenements_bouton.svg)
+
+**Le rendu final** (votre objectif une fois l'exercice terminé, à comparer avec la maquette ci-dessus) :
+
+<img alt="Rendu final - Exercice 5 : un bouton et un compteur qui s'incrémente à chaque clic" src=".github/assets/apercu-ex5-evenements-bouton.png" width="300"/>
 
 L'interface est simple : un bouton "Clique-moi" et un label qui affiche le nombre de clics. Le tout est empilé verticalement dans un `VBox`.
 
 ### Le graphe de scène
 
-```mermaid
-graph BT
-    B["🔘 <b>Button</b><br/>&quot;Clique-moi&quot;"] -- "enfant" --> V["📦 <b>VBox</b><br/>conteneur racine"]
-    L["🏷️ <b>Label</b><br/>&quot;0 clics&quot;"] -- "enfant" --> V
-    V -- "passé à" --> S["🎬 <b>Scene</b>"]
-    S -- "attachée au" --> ST["🖼️ <b>Stage</b>"]
-
-    style ST fill:#4a90d9,color:white
-    style S fill:#7bb563,color:white
-    style V fill:#e8a838,color:white
-    style B fill:#d35f5f,color:white
-    style L fill:#d35f5f,color:white
-```
+<img alt="Graphe de scène : un Button et un Label dans une VBox, passée à la Scene puis attachée au Stage" src=".github/assets/ex5-graphe-scene.svg"/>
 
 ### Comment fonctionne un événement
 
@@ -801,20 +775,7 @@ Ce mécanisme s'appelle le **pattern Observer** (vu en [CM1 (slide 51)](https://
 
 Quand l'utilisateur clique sur le bouton, JavaFX déclenche une chaîne d'appels :
 
-```mermaid
-sequenceDiagram
-    participant U as 👤 Utilisateur
-    participant B as Button
-    participant H as EventHandler
-    participant C as Compteur
-    participant L as Label
-
-    U->>B: clic
-    B->>H: handle(ActionEvent)
-    H->>C: incrementer()
-    C-->>H: valeur = N
-    H->>L: setText("N clics")
-```
+<img alt="Chaîne d'un événement : clic sur le Button, EventHandler.handle, Compteur.incrementer, puis Label.setText" src=".github/assets/ex5-chaine-evenement.svg"/>
 
 La méthode `setOnAction()` du bouton enregistre un `EventHandler` : c'est l'objet qui sera appelé à chaque clic. À l'intérieur de `handle()`, on incrémente le compteur puis on met à jour le texte du label.
 
@@ -920,6 +881,7 @@ Appliquez la [boucle de travail](#boucle-de-travail-pour-chaque-test) : activez 
 5. **`leBoutonAfficheLeBonTexte`** : passez le texte `"Clique-moi"` au constructeur du Button, ou utilisez `setText()`.
 6. **`leLabelCompteurExiste`** : créez un `Label` avec l'id `compteur` et ajoutez-le au VBox.
 7. **`troisClicsAffichent3Clics`** : c'est ici que vous branchez l'écouteur. Créez un `Compteur`, puis utilisez `bouton.setOnAction(...)` pour incrémenter le compteur et mettre à jour le texte du label à chaque clic. Choisissez le style d'écouteur de votre choix (voir les 3 styles ci-dessus).
+8. **Style (pour coller à la maquette, non testé)** : centrez le contenu (`root.setAlignment(Pos.CENTER)`), donnez au bouton un **fond bleu + texte blanc gras** (`setStyle("-fx-background-color: #4a90d9; -fx-text-fill: white; -fx-font-weight: bold; -fx-padding: 12 28;")`) et **encadrez** le label (fond clair + bordure).
 
 > [!TIP]
 > Commencez par le style lambda (style 3) : c'est le plus rapide à écrire. Quand le test passe, essayez de remplacer par le style 1 ou 2 pour voir la différence de syntaxe - le test doit toujours passer.
@@ -961,9 +923,15 @@ Vérifiez votre score sur l'onglet **Actions**. Il devrait avoir augmenté.
 - [`Button`](https://openjfx.io/javadoc/25/javafx.controls/javafx/scene/control/Button.html) et [`Pane`](https://openjfx.io/javadoc/25/javafx.graphics/javafx/scene/layout/Pane.html) pour l'interaction
 - `setOnAction()` et `setStyle()` pour le comportement dynamique
 
-### Maquette de l'IHM attendue
+### Maquette à reproduire
+
+Voici l'interface que vous devez construire :
 
 ![Maquette de la palette de couleurs](src/main/resources/assets/maquette_palette.svg)
+
+**Le rendu final** (votre objectif une fois l'exercice terminé, à comparer avec la maquette ci-dessus) :
+
+<img alt="Rendu final - Exercice 6 : une palette de boutons de couleur qui changent le fond, avec des compteurs de clics" src=".github/assets/apercu-ex6-palette.png" width="300"/>
 
 - Cliquer **Rouge** → le fond du `Pane` central devient rouge, et le compteur Rouge du label augmente de 1
 - Même principe pour Vert et Bleu
@@ -973,27 +941,7 @@ Vérifiez votre score sur l'onglet **Actions**. Il devrait avoir augmenté.
 
 L'interface est décomposée en **trois zones** dans un `BorderPane`, comme dans l'exercice 4 :
 
-```mermaid
-graph TD
-    ST["🖼️ <b>Stage</b>"] -->|"setScene()"| S["🎬 <b>Scene</b>"]
-    S -->|"racine"| BP["📦 <b>BorderPane</b>"]
-    BP -->|"setTop()"| H["➡️ <b>HBox</b>"]
-    BP -->|"setCenter()"| Z["🎨 <b>Pane</b><br/>zone de couleur"]
-    BP -->|"setBottom()"| L["🏷️ <b>Label</b><br/>&quot;Rouge: 0 ...&quot;"]
-    H --- BR["🔴 <b>Button</b><br/>&quot;Rouge&quot;"]
-    H --- BV["🟢 <b>Button</b><br/>&quot;Vert&quot;"]
-    H --- BB["🔵 <b>Button</b><br/>&quot;Bleu&quot;"]
-
-    style ST fill:#4a90d9,color:white
-    style S fill:#7bb563,color:white
-    style BP fill:#e8a838,color:white
-    style H fill:#b0bec5,color:#333
-    style Z fill:#b0bec5,color:#333
-    style L fill:#b0bec5,color:#333
-    style BR fill:#e74c3c,color:white
-    style BV fill:#27ae60,color:white
-    style BB fill:#2980b9,color:white
-```
+<img alt="Graphe de scène de la palette : Stage, Scene, BorderPane avec HBox (boutons Rouge/Vert/Bleu), Pane de couleur et Label" src=".github/assets/ex6-graphe-scene.svg"/>
 
 ### Découverte du code
 
@@ -1046,9 +994,9 @@ Appliquez la [boucle de travail](#boucle-de-travail-pour-chaque-test) : activez 
 
 1. **`laFenetreEstVisible`** : appelez `show()` sur le Stage.
 2. **`laSceneExiste`** : créez un `BorderPane`, une `Scene`, et attachez-la au Stage.
-3. **`lesTroisBoutonsExistent`** : créez 3 `Button` ("Rouge", "Vert", "Bleu") avec les ids `btn-rouge`, `btn-vert`, `btn-bleu`. Placez-les dans un `HBox` et assignez le HBox à `borderPane.setTop()`.
+3. **`lesTroisBoutonsExistent`** : créez 3 `Button` ("Rouge", "Vert", "Bleu") avec les ids `btn-rouge`, `btn-vert`, `btn-bleu`. Placez-les dans un `HBox` (avec un peu d'espacement et de padding) et assignez le HBox à `borderPane.setTop()`. Pour coller à la maquette, **colorez chaque bouton** avec sa couleur de fond, un texte blanc et des coins arrondis : `btnRouge.setStyle("-fx-background-color: #e74c3c; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 6;")` (idem `#27ae60` pour Vert, `#2980b9` pour Bleu).
 4. **`laZoneDeCouleurExiste`** : créez un `Pane` avec l'id `zone` et placez-le au centre du BorderPane avec `setCenter()`. Donnez-lui une taille minimale avec `zone.setMinSize(300, 200)`.
-5. **`leLabelCompteursExiste`** : créez un `Label` avec l'id `compteurs` et le texte initial `"Rouge: 0  Vert: 0  Bleu: 0"`. Placez-le dans `borderPane.setBottom()`.
+5. **`leLabelCompteursExiste`** : créez un `Label` avec l'id `compteurs` et le texte initial `"Rouge: 0  Vert: 0  Bleu: 0"`. Placez-le dans `borderPane.setBottom()`. Pour qu'il s'affiche **centré comme une barre de statut** (cf. maquette), donnez-lui `setMaxWidth(Double.MAX_VALUE)` + `setAlignment(Pos.CENTER)`.
 6. **`cliquerRougeMetLaZoneEnRouge`** : branchez un écouteur sur le bouton Rouge qui change le style de la zone avec `zone.setStyle("-fx-background-color: red;")`.
 7. **`cliquerVertMetLaZoneEnVert`** : même principe pour le bouton Vert avec `green`.
 8. **`cliquerBleuMetLaZoneEnBleu`** : même principe pour le bouton Bleu avec `blue`.
@@ -1098,9 +1046,15 @@ Vérifiez votre score sur l'onglet **Actions**. Si tous les exercices sont termi
 - `autoReverse` et `cycleCount(INDEFINITE)` : faire rebondir indéfiniment
 - [`Slider`](https://openjfx.io/javadoc/25/javafx.controls/javafx/scene/control/Slider.html) : un curseur linéaire avec `valueProperty()` pour écouter les changements de valeur
 
-### Maquette de l'IHM attendue
+### Maquette à reproduire
+
+Voici l'interface que vous devez construire :
 
 ![Maquette de la balle rebondissante](src/main/resources/assets/maquette_balle_rebondissante.svg)
+
+**Le rendu final** (votre objectif une fois l'exercice terminé, à comparer avec la maquette ci-dessus) :
+
+<img alt="Rendu final - Bonus 7 : une balle dans un panneau, des boutons de contrôle et un slider de vitesse" src=".github/assets/apercu-bonus7-balle.png" width="360"/>
 
 L'interface se décompose verticalement dans un `VBox` :
 - En haut : un `HBox` avec 4 boutons de contrôle
@@ -1111,23 +1065,7 @@ L'interface se décompose verticalement dans un `VBox` :
 
 Une [`TranslateTransition`](https://openjfx.io/javadoc/25/javafx.graphics/javafx/animation/TranslateTransition.html) déplace un noeud (ici le cercle) en modifiant sa propriété `translateY` au fil du temps :
 
-```mermaid
-sequenceDiagram
-    participant U as 👤 Utilisateur
-    participant B as Button Démarrer
-    participant T as TranslateTransition
-    participant C as Circle (balle)
-
-    U->>B: clic
-    B->>T: playFromStart()
-    loop toutes les N ms
-        T->>C: setTranslateY(y)
-        Note right of C: y varie de 10 à 400<br/>puis de 400 à 10 (autoReverse)
-    end
-    U->>B: clic Pause
-    B->>T: pause()
-    Note right of T: l'animation se fige
-```
+<img alt="Animation : un clic lance la TranslateTransition qui appelle setTranslateY en boucle ; un second clic met en pause" src=".github/assets/bonus7-animation.svg"/>
 
 La propriété `rate` de la transition contrôle la vitesse : `rate=1` est la vitesse normale, `rate=2` est deux fois plus rapide, `rate=0.5` deux fois plus lent. Le slider ajuste cette propriété en temps réel.
 
@@ -1157,23 +1095,7 @@ Ce code est exécuté à chaque fois que la valeur du slider change. `nouvelleVa
 
 ### Le graphe de scène
 
-```mermaid
-graph TD
-    ST["🖼️ <b>Stage</b>"] -->|"setScene()"| S["🎬 <b>Scene</b>"]
-    S -->|"racine"| V["📦 <b>VBox</b>"]
-    V --> H["➡️ <b>HBox</b><br/>Démarrer · Pause · Reprendre · Stop"]
-    V --> SL["🎚️ <b>Slider</b><br/>0.1 - 5.0"]
-    V --> P["📦 <b>Pane</b><br/>zone d'animation"]
-    P --> C["🔴 <b>Circle</b><br/>rayon 15"]
-
-    style ST fill:#4a90d9,color:white
-    style S fill:#7bb563,color:white
-    style V fill:#e8a838,color:white
-    style H fill:#b0bec5,color:#333
-    style SL fill:#b0bec5,color:#333
-    style P fill:#b0bec5,color:#333
-    style C fill:#e74c3c,color:white
-```
+<img alt="Graphe de scène : Stage, Scene, VBox contenant la HBox des boutons, le Slider et le Pane d'animation avec le Circle" src=".github/assets/bonus7-graphe-scene.svg"/>
 
 ### Découverte du code
 
@@ -1230,13 +1152,13 @@ Appliquez la [boucle de travail](#boucle-de-travail-pour-chaque-test) : activez 
 
 1. **`laFenetreEstVisible`** : appelez `show()`.
 2. **`laSceneExiste`** : créez un `VBox`, une `Scene`, et attachez-la au Stage.
-3. **`leBoutonDemarrerExiste`** : créez un `Button` "Démarrer" avec l'id `btn-start`. Placez-le dans un `HBox`, ajoutez le HBox au VBox.
+3. **`leBoutonDemarrerExiste`** : créez un `Button` "Démarrer" avec l'id `btn-start`. Placez-le dans un `HBox`, ajoutez le HBox au VBox. Pour coller à la maquette, c'est le bouton primaire **bleu** : `btnStart.setStyle("-fx-background-color: #4a90d9; -fx-text-fill: white; -fx-font-weight: bold;")`.
 4. **`leBoutonPauseExiste`** : ajoutez un Button "Pause" (id `btn-pause`) au HBox.
 5. **`leBoutonReprendreExiste`** : ajoutez un Button "Reprendre" (id `btn-resume`) au HBox.
-6. **`leBoutonStopExiste`** : ajoutez un Button "Stop" (id `btn-stop`) au HBox.
+6. **`leBoutonStopExiste`** : ajoutez un Button "Stop" (id `btn-stop`) au HBox. Pour coller à la maquette, **Pause, Reprendre et Stop partagent un même style secondaire gris et plat** (`-fx-background-color: #cccccc; -fx-text-fill: #333333; -fx-border-color: #aaaaaa; -fx-background-radius: 6;`), arrondi comme « Démarrer ».
 7. **`leSliderExiste`** : créez un [`Slider`](https://openjfx.io/javadoc/25/javafx.controls/javafx/scene/control/Slider.html) avec l'id `slider-vitesse` et ajoutez-le au VBox.
-8. **`leSliderALesBonnesLimites`** : configurez le slider avec `new Slider(0.1, 5, 1)` (min, max, valeur initiale).
-9. **`laBalleExiste`** : créez un `Circle` de rayon 15, couleur rouge, avec l'id `balle`. Placez-le dans un `Pane` (id `zone-animation`) et ajoutez le Pane au VBox.
+8. **`leSliderALesBonnesLimites`** : configurez le slider avec `new Slider(0.1, 5, 1)` (min, max, valeur initiale). Pour coller à la maquette, **affichez ses bornes** : `setShowTickLabels(true)`, `setMajorTickUnit(4.9)` et `setMinorTickCount(0)` (un pas égal à la plage ne marque que le min et le max), mais **`setShowTickMarks(false)`** pour que les bornes restent **collées à la ligne** (sans longues graduations). Donnez-lui enfin une largeur **au moins égale à la barre de boutons** (`setPrefWidth(360)`) et **centrez-le** (par exemple dans un `HBox` avec `Pos.CENTER`).
+9. **`laBalleExiste`** : créez un `Circle` de rayon 15, couleur rouge, avec l'id `balle`. Placez-le dans un `Pane` (id `zone-animation`) et ajoutez le Pane au VBox. Pour coller à la maquette, **centrez la balle horizontalement** : `balle.layoutXProperty().bind(pane.widthProperty().divide(2))`.
 10. **`laZoneAnimationExiste`** : si vous avez suivi l'étape précédente, ce test devrait déjà passer.
 11. **`demarrerLanceAnimation`** : créez une [`TranslateTransition`](https://openjfx.io/javadoc/25/javafx.graphics/javafx/animation/TranslateTransition.html) de 1000ms sur le cercle, avec `fromY=10`, `toY=400`, `autoReverse=true`, `cycleCount=INDEFINITE`. Branchez le bouton Démarrer sur `transition.playFromStart()`.
 12. **`pauseArreteLAnimation`** : branchez le bouton Pause sur `transition.pause()`.
@@ -1276,39 +1198,21 @@ gh pr merge --rebase --delete-branch
 - Détection de collision avec `getBoundsInParent()`
 - Héritage et polymorphisme : `Pacman` et `Fantome` héritent de `Personnage`
 
-### Maquette du jeu
+### Maquette à reproduire
+
+Voici l'interface que vous devez construire :
 
 ![Maquette du mini-jeu Pacman](src/main/resources/assets/maquette_pacman.svg)
 
-Le plateau de jeu est un `Pane` de 640x480 pixels. Les personnages se déplacent sur une grille invisible de 20x20 pixels. Le Pacman est contrôlé par les **flèches directionnelles**, le Fantôme par les touches **Z/Q/S/D**.
+**Le rendu final** (votre objectif une fois l'exercice terminé, à comparer avec la maquette ci-dessus) :
+
+<img alt="Rendu final - Bonus 8 : un plateau de jeu avec un Pacman et un fantôme déplaçables au clavier" src=".github/assets/apercu-bonus8-pacman.png" width="480"/>
+
+Le plateau de jeu est un `Pane` de 640x480 pixels, au **fond bleu nuit** (`-fx-background-color: #1a1a2e`, comme sur la maquette). Les personnages se déplacent sur une grille invisible de 20x20 pixels. Le Pacman est contrôlé par les **flèches directionnelles**, le Fantôme par les touches **Z/Q/S/D**.
 
 ### Le graphe de scène
 
-```mermaid
-graph TD
-    ST["🖼️ <b>Stage</b>"] -->|"setScene()"| S["🎬 <b>Scene</b><br/>setOnKeyPressed()"]
-    S -->|"racine"| P["📦 <b>Pane</b><br/>plateau 640×480"]
-    P --> PAC["🟡 <b>Pacman</b> (Group)"]
-    P --> FAN["🔵 <b>Fantome</b> (Group)"]
-    PAC --> C1["⭕ Circle<br/>corps jaune"]
-    PAC --> L1["➖ Line<br/>bouche"]
-    FAN --> R1["▬ Rectangle<br/>bas du corps"]
-    FAN --> C2["⭕ Circle<br/>corps bleu"]
-    FAN --> OG["👁️ œil gauche<br/>+ rétine"]
-    FAN --> OD["👁️ œil droit<br/>+ rétine"]
-
-    style ST fill:#4a90d9,color:white
-    style S fill:#7bb563,color:white
-    style P fill:#1a1a2e,color:#e0e0e0
-    style PAC fill:#f1c40f,color:#333
-    style FAN fill:#3498db,color:white
-    style C1 fill:#f1c40f,color:#333
-    style L1 fill:#333,color:white
-    style R1 fill:#3498db,color:white
-    style C2 fill:#3498db,color:white
-    style OG fill:#ecf0f1,color:#333
-    style OD fill:#ecf0f1,color:#333
-```
+<img alt="Graphe de scène du jeu : Stage, Scene (setOnKeyPressed), Pane plateau contenant les Groups Pacman et Fantome et leurs formes" src=".github/assets/bonus8-graphe-scene.svg"/>
 
 Chaque personnage est un `Group` qui contient ses formes géométriques. Le `Pane` sert de plateau de jeu, et la `Scene` capture les événements clavier via `setOnKeyPressed()`.
 
@@ -1316,37 +1220,7 @@ Chaque personnage est un `Group` qui contient ses formes géométriques. Le `Pan
 
 L'exercice utilise l'**héritage** : `Pacman` et `Fantome` héritent de `Personnage`, qui hérite lui-même de `Group`.
 
-```mermaid
-classDiagram
-    Group <|-- Personnage
-    Personnage <|-- Pacman
-    Personnage <|-- Fantome
-    
-    class Personnage {
-        #String direction
-        +directionGauche()
-        +directionDroite(largeurJeu)
-        +directionBas(hauteurJeu)
-        +directionHaut()
-        +collision(autre) boolean
-    }
-    
-    class Pacman {
-        -Circle corps
-        -Line bouche
-        +directionBas(hauteurJeu)
-        +directionHaut()
-    }
-    
-    class Fantome {
-        -Circle oeilGauche, oeilDroit
-        -Circle retineGauche, retineDroite
-        +directionGauche()
-        +directionDroite(largeurJeu)
-        +directionBas(hauteurJeu)
-        +directionHaut()
-    }
-```
+<img alt="Diagramme de classes : Pacman et Fantome héritent de Personnage, qui hérite de Group" src=".github/assets/bonus8-classes.svg"/>
 
 ### Ce qui est fourni vs ce qui est à compléter
 
@@ -1535,7 +1409,7 @@ En cas de doute, demandez à Copilot Chat : `J'ai un conflit Git, comment le ré
 **Sur les machines de l'IUT** (Linux, SDKMAN pré-installé) :
 
 ```bash
-sdk install java 25.fx-zulu
+sdk install java 25.0.3-zulu   # JDK 25 standard : JavaFX 26 vient des deps Maven
 ```
 
 **Chez vous sous Linux / macOS** - installez d'abord SDKMAN depuis [sdkman.io](https://sdkman.io), puis la commande ci-dessus.
