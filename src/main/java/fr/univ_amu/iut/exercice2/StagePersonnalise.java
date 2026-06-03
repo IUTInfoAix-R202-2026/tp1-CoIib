@@ -16,11 +16,11 @@ public class StagePersonnalise extends Application {
 
   @Override
   public void start(Stage primaryStage) {
+    primaryStage.initStyle(StageStyle.UNDECORATED);
     primaryStage.setTitle("Ma fenêtre personnalisée");
     primaryStage.setWidth(500);
     primaryStage.setHeight(300);
     primaryStage.setResizable(false);
-    primaryStage.initStyle(StageStyle.UNDECORATED);
     primaryStage.show();
   }
 
