@@ -1,6 +1,13 @@
 package fr.univ_amu.iut.exercice6;
 
+import fr.univ_amu.iut.exercice5.Compteur;
 import javafx.application.Application;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
 /**
@@ -37,6 +44,67 @@ public class Palette extends Application {
 
   @Override
   public void start(Stage primaryStage) {
+    BorderPane bor = new BorderPane();
+    Button rouge = new Button("Rouge");
+    Button vert = new Button("Vert");
+    Button bleu = new Button("Bleu");
+    bleu.setId("btn-bleu");
+    rouge.setId("btn-rouge");
+    vert.setId("btn-vert");
+    HBox hbox = new HBox(rouge, vert, bleu);
+    Pane pane = new Pane();
+    pane.setStyle("-fx-background-color: black;");
+    pane.setMinHeight(300);
+    pane.setMinWidth(200);
+    pane.setId("zone");
+
+    Label label = new Label("Rouge: 0, Vert: 0, Bleu: 0");
+    label.setId("compteurs");
+    Compteur compteur_rouge = new Compteur();
+    Compteur compteur_vert = new Compteur();
+    Compteur compteur_bleu = new Compteur();
+    vert.setOnAction(
+        e -> {
+          compteur_vert.incrementer();
+          pane.setStyle("-fx-background-color: green;");
+          label.setText(
+              "Rouge: "
+                  + compteur_rouge.getValeur()
+                  + ", Vert: "
+                  + compteur_vert.getValeur()
+                  + ", Bleu: "
+                  + compteur_bleu.getValeur());
+        });
+    bleu.setOnAction(
+        e -> {
+          compteur_bleu.incrementer();
+          pane.setStyle("-fx-background-color: blue;");
+          label.setText(
+              "Rouge: "
+                  + compteur_rouge.getValeur()
+                  + ", Vert: "
+                  + compteur_vert.getValeur()
+                  + ", Bleu: "
+                  + compteur_bleu.getValeur());
+        });
+    rouge.setOnAction(
+        e -> {
+          compteur_rouge.incrementer();
+          pane.setStyle("-fx-background-color: red;");
+          label.setText(
+              "Rouge: "
+                  + compteur_rouge.getValeur()
+                  + ", Vert: "
+                  + compteur_vert.getValeur()
+                  + ", Bleu: "
+                  + compteur_bleu.getValeur());
+        });
+    bor.setTop(hbox);
+    bor.setCenter(pane);
+    bor.setBottom(label);
+    primaryStage.setScene(new Scene(bor));
+    primaryStage.show();
+
     // TODO exercice 6 : implémenter la palette décrite dans la Javadoc.
     //
     // Stratégie conseillée :
